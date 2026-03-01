@@ -25,6 +25,15 @@ export const App = () => {
   const [sortField, setSortField] = useState<SortType>(SortType.Default);
   const [reversed, setReversed] = useState<boolean>(false);
 
+  const handleSetSort = (type: SortType) => {
+    if (type === sortField) {
+      setReversed(prev => !prev);
+    } else {
+      setSortField(type);
+      setReversed(false);
+    }
+  };
+
   const visibleGoods = [...goodsFromServer];
 
   switch (sortField) {
@@ -56,23 +65,23 @@ export const App = () => {
       <div className="buttons">
         <button
           type="button"
-          className={`button is-info ${sortField === SortType.Alphabet ? SortType.Default : 'is-light'}`}
-          onClick={() => setSortField(SortType.Alphabet)}
+          className={`button is-info ${sortField === SortType.Alphabet ? '' : 'is-light'}`}
+          onClick={() => handleSetSort(SortType.Alphabet)}
         >
           Sort alphabetically
         </button>
 
         <button
           type="button"
-          className={`button is-success ${sortField === SortType.ByLength ? SortType.Default : 'is-light'}`}
-          onClick={() => setSortField(SortType.ByLength)}
+          className={`button is-success ${sortField === SortType.ByLength ? '' : 'is-light'}`}
+          onClick={() => handleSetSort(SortType.ByLength)}
         >
           Sort by length
         </button>
 
         <button
           type="button"
-          className={`button is-warning ${reversed ? SortType.Default : 'is-light'}`}
+          className={`button is-warning ${reversed ? '' : 'is-light'}`}
           onClick={() => {
             setReversed(prev => !prev);
           }}
